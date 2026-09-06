@@ -3,18 +3,22 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import Command
+from odoo.tests import tagged
 
 from odoo.addons.base.tests.common import BaseCommon
 
 from .. import post_init_hook
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceRefundLinkBase(BaseCommon):
     is_modify = False
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Text assertions ('Reversal of: …') are English: pin the context lang.
+        cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
