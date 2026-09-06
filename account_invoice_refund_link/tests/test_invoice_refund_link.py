@@ -17,7 +17,10 @@ class TestInvoiceRefundLinkBase(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Text assertions ('Reversal of: …') are English: pin the context lang.
+        # Text assertions ('Reversal of: …') are English: pin the language of
+        # both the context and the test user (the reversal reference is
+        # translated with the user's language in a fresh environment).
+        cls.env.user.write({"lang": "en_US"})
         cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         cls.env = cls.env(
             context=dict(
