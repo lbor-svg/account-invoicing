@@ -32,7 +32,9 @@ class TestInvoiceRefundLinkBase(BaseCommon):
                 tracking_disable=True,
             )
         )
-        cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.partner = cls.env["res.partner"].create(
+            {"name": "Test partner", "lang": "en_US"}
+        )
         default_line_account = cls.env["account.account"].create(
             {
                 "name": "TESTACC",
